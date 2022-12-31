@@ -48,18 +48,12 @@ function addNewNote(text = '') {
   textArea.addEventListener('input', (e) => {
     const content = e.target.value;
     previewContent.innerHTML = marked.parse(content);
-    // TODO: save to LS
+    //save to LS
     updateLS();
   });
 
-  //   toggle preview
-  previewBtn.addEventListener('click', () => {
-    previewContent.classList.toggle('hidden');
-    textArea.classList.toggle('hidden');
-  });
-
-  //   handle click event on previewContent
-  previewContent.addEventListener('click', () => {
+  // helper function to handle clicks on previewContent and previewBtn
+  const handlePreview = () => {
     previewContent.classList.toggle('hidden');
     textArea.classList.toggle('hidden');
     // move cursor to end of text when user clicks on content section
@@ -67,7 +61,15 @@ function addNewNote(text = '') {
     textArea.setSelectionRange(end, end);
     // focus on the end of textArea
     textArea.focus();
-  });
+  };
+
+  //   toggle preview
+  previewBtn.addEventListener('click', handlePreview);
+
+  //   handle click event on previewContent
+  previewContent.addEventListener('click', () => handlePreview());
+
+  // append note div to body
   document.body.appendChild(note);
 }
 
