@@ -24,8 +24,8 @@ function addNewNote(text = '') {
             <i class="fas fa-trash-alt"></i>
         </button>
     </div>
-    <div class="preview-content hidden"></div>
-    <textarea></textarea>
+    <div class="preview-content"></div>
+    <textarea class="hidden"></textarea>
   `;
 
   //   get all elements
@@ -62,6 +62,11 @@ function addNewNote(text = '') {
   previewContent.addEventListener('click', () => {
     previewContent.classList.toggle('hidden');
     textArea.classList.toggle('hidden');
+    // move cursor to end of text when user clicks on content section
+    const end = textArea.value.length;
+    textArea.setSelectionRange(end, end);
+    // focus on the end of textArea
+    textArea.focus();
   });
   document.body.appendChild(note);
 }
